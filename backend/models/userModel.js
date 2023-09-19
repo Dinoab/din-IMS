@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-userSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
     name: {
         type: String,
-        required: [true, "Please Add Your Name"]
+        required: [true, "Please Add Your Name"],
     },
     email: {
         type: String,
@@ -13,7 +13,7 @@ userSchema = mongoose.Schema({
         macth: [
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         ],
-        "Please enter a valid email adress"
+        required: [true, "Please enter a valid email adress"],
     },
 
     password: {
@@ -30,7 +30,7 @@ userSchema = mongoose.Schema({
 
     phone: {
         type: String,
-        default: "+251",
+        default: "+251911735000",
         
     },
     Position:  {
@@ -39,15 +39,16 @@ userSchema = mongoose.Schema({
         maxLength: [250, "biography length shall not be greater than 250 characters"],
     },
 
-} 
+}, 
 {
     timestamps: true,
-});
+}
+);
 
 
 //Encrypt password before saving
 
-userSchema.pre("save", async function(next){
+userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
         return next();
 
@@ -55,7 +56,7 @@ userSchema.pre("save", async function(next){
 
 
     //hash passwored
-const salt = await bcrypt.genSalt(10);
+const salt = await bcrypt.genSalt(15);
 const hashedPassword = await bcrypt.hash(this.password, salt);
 this.password = hashedPassword;
 

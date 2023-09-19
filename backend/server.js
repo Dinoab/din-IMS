@@ -4,20 +4,33 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const userRoute = require("./routes/userRoute")
+const userRoute = require("./routes/userRoute");
 
-const errorHandler = require("./middleWare/errorMiddleware")
+const errorHandler = require("./middleWare/errorMiddleware");
+const cookieParser = require("cookie-parser");
 
-const app = express()
+const productRoute = require("./routes/productRoute");
+const contactRoute = require("./routes/contactRoute");
+const path = require("path");
+
+const app = express();
 
 //Middle wares
-app.use(express.json)
-app.use(express.urlencoded({extended: false}))
-app.use(bodyParser.json)
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(cors({
+
+
+}));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes middleware
 
 app.use("/api/users",  userRoute)
+app.use("/api/products", productRoute);
+app.use("/api/contactus", contactRoute);
 
 //routes
 app.get("/", (req, res) => {
@@ -36,6 +49,6 @@ mongoose
 .connect(process.env.MONGO_URI)
 .then(() => {
     app.listen(PORT, () => {
-        console.log(`Server Running on port ${PORT}`)    })
+        console.log(`Server Running on port ${PORT}`);   })
     })
-    .catch((err) => console.log(err))
+    .catch((err) => console.log(err));
