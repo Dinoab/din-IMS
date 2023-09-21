@@ -1,10 +1,10 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
+  "type":"module.cjs",
   "scripts": {
-    "start": "node server.js",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && ng s -o",
     "backend": "nodemon server.js"
   },
   "keywords": [],
@@ -21,8 +21,12 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.1.0",
+    "mongodb-memory-server": "^8.15.1",
     "mongoose": "^7.5.2",
+    "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.9.5"
-  }
+    "nodemailer": "^6.9.5",
+    "nodemon": "^3.0.1"
+  },
+  "description": ""
 }
